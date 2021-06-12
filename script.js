@@ -111,12 +111,12 @@ if(leftPositionOfBall >= window.innerWidth - ballRadius - paddleWidth) {
   }
 }
 
-if(score1 >= 9 && score1 >= score2 +2) {
+if(score1 >= 10 && score1 >= score2 +2) {
  score1 = 0
  score2 = 0
  
 } 
-if(score2 >= 9 && score2 >= score1 +2){
+if(score2 >= 10 && score2 >= score1 +2){
   score1= 0
   score2= 0
   
