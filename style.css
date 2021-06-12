@@ -1,19 +1,49 @@
-
 .p5Canvas {
   /* zorg dat canvas niet groter wordt dan window
      en behoud breedte x hoogte verhouding van 1280x720 
    */  
   max-width: min(100vh*1280/720, 100vw);
   max-height: min(100vw*720/1280, 100vh);
-  
-  /* zet canvas in het midden
+}
+ #paddle1 {
+  position: absolute;
+  left: 0px;
+  top:460px;
+  width: 30px;
+  height: 150px;
+  background-color:blue;
+  border-radius: 100%;
+}
+#paddle2 {
+  position: absolute;
+  right: 0px;
+  top:460px;
+  width: 30px;
+  height: 150px;
+  background-color:blue;
+  border-radius: 100%;
+}
+#ball {
+  position: absolute;
+  left: 640px;
+  top:370px;
+  width: 35px;
+  height: 35px;
+  background-color:black;
+  border-radius: 50%;
+}
+body {
+  background-color: rgb(201, 34, 201);
+}
+#net {
+  border-left: 6px dotted black;
+  height: 200%;
+  left: 640px;
+  position: fixed;
+}
+{  /* zet canvas in het midden
    */ 
   display:block;
   margin: auto;
 }
 
-html, body {
-  /* verwijder marge tussen canvas en rand van window
-   */ 
-  margin: 0px;
-}
