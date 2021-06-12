@@ -6,9 +6,19 @@
     <link href="manifest.json" rel="manifest" >
     <link href="style.css" rel="stylesheet" type="text/css" />
     <title>Game</title>
-  </head>
-  <body>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.js"></script>
     <script id=canvas src="script.js"></script>
+  </head>
+  <body onload= "startBall()">
+    <div id="net"></div>
+
+    <div style= "display:flex; justify-content: space-around; font-size: 100px">
+    <span id="score1"></span><span id="score2""></span>
+    <div id="paddle1"></div>
+    <div id="ball"></div>
+    <div id="paddle2"></div>
+
+
+
   </body>
 </html>
