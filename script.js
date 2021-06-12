@@ -1,189 +1,133 @@
-/// @ts-check
-/// <reference path=".gitpod/p5.global-mode.d.ts" />
-"use strict";
-
-/* Game opdracht
-   Informatica - Emmauscollege Rotterdam
-   Template voor een game in JavaScript met de p5 library
-
-   Begin met dit template voor je game opdracht,
-   voeg er je eigen code aan toe.
- */
-
-
-
-
-/* ********************************************* */
-/* globale variabelen die je gebruikt in je game */
-/* ********************************************* */
-
-const UITLEG = 0;
-const SPELEN = 1;
-const GAMEOVER = 2;
-var spelStatus = SPELEN;
-
-var spelerX = 200; // x-positie van speler
-var spelerY = 100; // y-positie van speler
-
-var kogelX = 0;    // x-positie van kogel
-var kogelY = 0;    // y-positie van kogel
-
-var vijandX = 0;   // x-positie van vijand
-var vijandY = 0;   // y-positie van vijand
-
-var score = 0; // aantal behaalde punten
+var paddleHeight = 150;
+var paddleWidth = 30;
+var ballRadius = 35;
+var halfPaddleHeight = paddleHeight/2;
+var speedOfPaddle1 = 0;
+var speedOfPaddle2 = 0;
+var positionOfPaddle1 = 460;
+var positionOfPaddle2 = 460;
+var topPositionOfBall = 370;
+var leftPositionOfBall = 640;
+var topSpeedOfBall = 10;
+var leftSpeedOfBall = 0;
+var score1 = 0;
+var score2 = 0;
 
 
+//ball movements
+function startBall() {
+  topPositionOfBall = 370;
+  leftPositionOfBall = 640;
 
+  if(Math.random() < 0.5){
+    var side = 1;
+   }else {
+    var side = -1;
+  }
 
-
-/* ********************************************* */
-/*      functies die je gebruikt in je game      */
-/* ********************************************* */
-
-
-/**
- * Tekent het speelveld
- */
-var tekenVeld = function () {
-  fill("purple");
-  rect(20, 20, width - 2 * 20, height - 2 * 20);
-};
-
-
-/**
- * Tekent de vijand
- * @param {number} x x-coördinaat
- * @param {number} y y-coördinaat
- */
-var tekenVijand = function(x, y) {
-    
-
-};
-
-
-/**
- * Tekent de kogel of de bal
- * @param {number} x x-coördinaat
- * @param {number} y y-coördinaat
- */
-var tekenKogel = function(x, y) {
-
-
-};
-
-
-/**
- * Tekent de speler
- * @param {number} x x-coördinaat
- * @param {number} y y-coördinaat
- */
-var tekenSpeler = function(x, y) {
-  fill("white");
-  ellipse(x, y, 50, 50);
-};
-
-
-/**
- * Updatet globale variabelen met positie van vijand of tegenspeler
- */
-var beweegVijand = function() {
-    
-};
-
-
-/**
- * Updatet globale variabelen met positie van kogel of bal
- */
-var beweegKogel = function() {
-
-};
-
-
-/**
- * Kijkt wat de toetsen/muis etc zijn.
- * Updatet globale variabele spelerX en spelerY
- */
-var beweegSpeler = function() {
-
-};
-
-
-/**
- * Zoekt uit of de vijand is geraakt
- * @returns {boolean} true als vijand is geraakt
- */
-var checkVijandGeraakt = function() {
-
-  return false;
-};
-
-
-/**
- * Zoekt uit of de speler is geraakt
- * bijvoorbeeld door botsing met vijand
- * @returns {boolean} true als speler is geraakt
- */
-var checkSpelerGeraakt = function() {
-    
-  return false;
-};
-
-
-/**
- * Zoekt uit of het spel is afgelopen
- * @returns {boolean} true als het spel is afgelopen
- */
-var checkGameOver = function() {
-    
-  return false;
-};
-
-
-/**
- * setup
- * de code in deze functie wordt één keer uitgevoerd door
- * de p5 library, zodra het spel geladen is in de browser
- */
-function setup() {
-  // Maak een canvas (rechthoek) waarin je je speelveld kunt tekenen
-  createCanvas(1280, 720);
-
-  // Kleur de achtergrond blauw, zodat je het kunt zien
-  background('blue');
+  leftSpeedOfBall = side * (Math.random() * 6 + 5)
+  topSpeedOfBall = Math.random() * 6 + 5;
 }
 
+//player controls//
 
-/**
- * draw
- * de code in deze functie wordt meerdere keren per seconde
- * uitgevoerd door de p5 library, nadat de setup functie klaar is
- */
-function draw() {
-  switch (spelStatus) {
-    case SPELEN:
-      beweegVijand();
-      beweegKogel();
-      beweegSpeler();
-      
-      if (checkVijandGeraakt()) {
-        // punten erbij
-        // nieuwe vijand maken
-      }
-      
-      if (checkSpelerGeraakt()) {
-        // leven eraf of gezondheid verlagen
-        // eventueel: nieuwe speler maken
-      }
+document.addEventListener('keydown',function(e){
+ // W
+  if(e.keycode == 87|| e.which == 87) {
+    speedOfPaddle1 = -10;
+  }
+  //S
+  if(e.keycode == 83|| e.which == 83) {
+    speedOfPaddle1 = 10;
+  }
+  //Up
+  if(e.keycode == 38|| e.which == 38) {
+    speedOfPaddle2 = -10;
+  }
+  //Down
+  if(e.keycode == 40|| e.which == 40) {
+    speedOfPaddle2 = 10;
+  }
+})
 
-      tekenVeld();
-      tekenVijand(vijandX, vijandY);
-      tekenKogel(kogelX, kogelY);
-      tekenSpeler(spelerX, spelerY);
+document.addEventListener('keyup',function(e){
+ // W
+  if(e.keycode == 87|| e.which == 87) {
+    speedOfPaddle1 = 0;
+  }
+  //S
+  if(e.keycode == 83|| e.which == 83) {
+    speedOfPaddle1 = 0;
+  }
+  //Up
+  if(e.keycode == 38|| e.which == 38) {
+    speedOfPaddle2 = 0;
+  }
+  //Down
+  if(e.keycode == 40|| e.which == 40) {
+    speedOfPaddle2 = 0;
+  }
+})
 
-      if (checkGameOver()) {
-        spelStatus = GAMEOVER;
-      }
-      break;
+window.setInterval(function show() {
+
+ positionOfPaddle1 += speedOfPaddle1;
+ positionOfPaddle2 += speedOfPaddle2;
+
+ topPositionOfBall += topSpeedOfBall;
+ leftPositionOfBall += leftSpeedOfBall;
+
+//stops paddles from leaving screen up 
+if(positionOfPaddle1 <= 1) {
+  positionOfPaddle1 = 1;
+}
+if(positionOfPaddle2 <= 1) {
+  positionOfPaddle2 = 1;
+}
+//stops paddles from leaving screen Down
+if(positionOfPaddle1 >= window.innerHeight - paddleHeight){
+  positionOfPaddle1 = window.innerHeight - paddleHeight
+}
+if(positionOfPaddle2 >= window.innerHeight - paddleHeight){
+  positionOfPaddle2 = window.innerHeight - paddleHeight
+}
+if(topPositionOfBall <= 10 || topPositionOfBall >= window.innerHeight - ballRadius) {
+  topSpeedOfBall =  -topSpeedOfBall;
+}
+if(leftPositionOfBall <= paddleWidth) {
+  if (topPositionOfBall > positionOfPaddle1 && topPositionOfBall < positionOfPaddle1 + paddleHeight) { 
+    leftSpeedOfBall = -leftSpeedOfBall;
+  } else {
+    score2++
+    startBall();
   }
 }
+if(leftPositionOfBall >= window.innerWidth - ballRadius - paddleWidth) {
+  if (topPositionOfBall > positionOfPaddle2 && topPositionOfBall < positionOfPaddle2 + paddleHeight) {
+    leftSpeedOfBall = -leftSpeedOfBall;
+  } else {
+    score1++
+    startBall();
+  }
+}
+
+if(score1 >= 9 && score1 >= score2 +2) {
+ score1 = 0
+ score2 = 0
+ 
+} 
+if(score2 >= 9 && score2 >= score1 +2){
+  score1= 0
+  score2= 0
+  
+}
+
+ document.getElementById('paddle1').style.top = positionOfPaddle1 + 'px';
+ document.getElementById('paddle2').style.top = positionOfPaddle2 + 'px';
+
+ document.getElementById('ball').style.top = topPositionOfBall + 'px';
+ document.getElementById('ball').style.left = leftPositionOfBall + 'px';
+
+ document.getElementById('score1').innerHTML = score1.toString()
+ document.getElementById('score2').innerHTML = score2.toString()
+},1000/60)
